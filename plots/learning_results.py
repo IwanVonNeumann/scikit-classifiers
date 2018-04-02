@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 
 
-def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
+def plot_decision_regions(X, y, classifier, X_test=None, y_test=None, resolution=0.02):
     # setup marker generator and color map
-    markers = ('x', 'o', '^', 's', 'v')
+    markers = ('v', 'o', '^', 's', 'x')
     colors = ('blue', 'red', 'lime', 'gray', 'cyan')
     cmap = ListedColormap(colors[:len(np.unique(y))])
 
@@ -25,14 +25,9 @@ def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
     plt.ylim(xx2.min(), xx2.max())
 
     # plot all samples
-    # TODO fix plotting
-    # X_test, y_test = X[test_idx, :], y[test_idx]
-
     for idx, cl in enumerate(np.unique(y)):
         plt.scatter(x=X[y == cl, 0], y=X[y == cl, 1], alpha=0.8, c=cmap(idx), marker=markers[idx], label=cl)
 
-    # highlight test samples
-    if test_idx:
-        X_test, y_test = X[test_idx, :], y[test_idx]
-        plt.scatter(X_test[:, 0], X_test[:, 1], c='', alpha=1.0, linewidth=1, edgecolors="black", marker='o', s=55,
-                    label='test set')
+        if X_test is not None and y_test is not None:
+            plt.scatter(x=X_test[y_test == cl, 0], y=X_test[y_test == cl, 1], alpha=1, c=cmap(idx), s=60,
+                        marker=markers[idx], edgecolors="black")

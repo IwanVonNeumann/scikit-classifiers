@@ -1,10 +1,9 @@
-import numpy as np
 import matplotlib.pyplot as plt
 
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Perceptron
 from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 from data_access import load_iris_data
 from plots.learning_results import plot_decision_regions
@@ -34,10 +33,7 @@ print("Misclassified samples: {}".format(n_misclassified))
 
 print("Classification accuracy: {:.3f}".format(accuracy_score(y_test, y_pred)))
 
-X_combined_std = np.vstack((X_train_std, X_test_std))
-y_combined = np.hstack((y_train, y_test))
-
-plot_decision_regions(X=X_combined_std, y=y_combined, classifier=perceptron, test_idx=range(105, 150))
+plot_decision_regions(X=X_train_std, y=y_train, X_test=X_test_std, y_test=y_test, classifier=perceptron)
 plt.xlabel('petal length [standardized]')
 plt.ylabel('petal width [standardized]')
 plt.legend(loc='upper left')
